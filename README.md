@@ -4,4 +4,5 @@
 
 FlutterKaigi 2026 ワークショップ・プロジェクトのリポジトリです。  
 
-- [AI を使った Flutter 開発の再構築ワークショップ 環境設定ガイド (2026)](./docs/workshop_guilde_2026.md)
+- コンテンツ
+  - [AI を使った Flutter 開発の再構築ワークショップ 環境設定ガイド (2026)](./docs/workshop_guilde_2026.md)
