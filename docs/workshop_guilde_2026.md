@@ -398,6 +398,7 @@ provider add ollama --type ollama --base-url "http://localhost:11434/v1"
 
 # Register a model on Ollama.
 model add ollama/gemma4:e4b --name "Gemma4:e4b" --context-window 128000
+model add ollama/qwen3.5:9b --name "Qwen3.5:9b" --context-window 256000
 
 # 32GB RAM 以上の Apple Sillicon mac ならコメントアウトをオフ
 # model add ollama/qwen3.8:27b --name "Qwen3.8:27b" --context-window 256000
