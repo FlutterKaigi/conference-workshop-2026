@@ -686,8 +686,9 @@ Crush でのモデルの選択について補足いたします。
 ” Official Dart and Flutter Agent Plugins: Bundle our dedicated Model Context Protocol (MCP) server alongside 10 Flutter and 14 Dart skills.
 They give agents direct access to the Dart Analyzer and Widget Inspector to enforce framework best practices. ”
 
-Flutter Agent Plugins は、専用の Model Context Protcol（MCP）サーバーと、10個の Flutterスキル、14個の Dartスキルをバンドルしています。  
-エージェントは Dartアナライザーとウィジェットインスペクターに直接アクセスして、フレームワークのベストプラクティスを適用できます。
+Flutter Agent Plugins は、**専用の Model Context Protcol（MCP）サーバー**と、10個の Flutterスキル、14個の Dartスキルをバンドルしています。  
+
+**エージェントは Dartアナライザーとウィジェットインスペクターに直接アクセスして、フレームワークのベストプラクティスを適用できます。**
 
 ![](images/column/Flutter_blog-20261020.png)  
 
