@@ -44,5 +44,11 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# FVM Version Cache
+.fvm/
+
 # Widget Preview related
 .widget_preview/
+
+# crush workspace settings
+.crush/
