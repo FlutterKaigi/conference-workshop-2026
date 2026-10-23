@@ -3,6 +3,9 @@
 ![FlutterKaigi 2026 ワークショップリポジトリ](./docs/images/FlutterKaigi_2026_workshop_repository.png)
 
 FlutterKaigi 2026 ワークショップ・プロジェクトのリポジトリです。  
+このリポジトリをクローンして、ワークショップでの実践に御利用ください。  
 
 - コンテンツ
   - [AI を使った Flutter 開発の再構築ワークショップ 環境設定ガイド (2026)](./docs/workshop_guilde_2026.md)
+
+  - [AI を使った Flutter 開発の再構築ワークショップ ドキュメント](./docs/flutterkaigi_2026_workshop.md)
