@@ -597,13 +597,17 @@ _お時間のあるときにチャレンジしてみてください。_
 
 - step.1  
   ![](images/agy_cli_fix_challenge/crush_model_setting/crush_model_settings_4.png)  
-  Crush coding agent harness が起動したところ。
+  Crush coding agent harness が起動したところ。  
+  _画面上部の `dart-lsp-server` に点灯マークがないことに注目してください。_  
+  _これは Dart MCP サーバーが登録されていますが有効化されていないことを示します。_ 
 
 <br/>
 
 - step.2  
   ![](images/agy_cli_fix_challenge/qwen35_with_skills_mcp_lsp/fix_challenge_qwen35_2.png)  
-  30分ほどで、コード修正完了を宣言。
+  30分ほどで、コード修正完了を宣言。  
+  画面右側の `dart-lsp-server` に 🟢 マークが灯り、LSP Server が有効になったことに注目してください。  
+  これはスキルから Dart MCP サーバーを介して、**Dart LSP サーバーが有効化され利用されている**ことを示します。 
 
 <br/>
 
