@@ -43,7 +43,8 @@ Flutter 開発環境と Antigravity CLI および Ollama と Crush をインス�
 
 以下のコマンドで、これから行うワークショップのリポジトリをクローンしてください。
 
-`git clone git@github.com:FlutterKaigi/conference-workshop-2026.git`
+`git clone git@github.com:FlutterKaigi/conference-workshop-2026.git`  
+または `git clone https://github.com/FlutterKaigi/conference-workshop-2026.git`  
 
 
 - FlutterKaigi 2026 ワークショップの GitHubリポジトリ  
