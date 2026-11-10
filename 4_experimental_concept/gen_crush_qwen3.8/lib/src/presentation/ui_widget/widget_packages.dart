@@ -4,7 +4,6 @@
 /// 1 つの系統のみを有効にすることで、アプリ全体で使用する UI を切り替える。
 library;
 
-export 'default/widget_packages.dart';
-
+// export 'default/widget_packages.dart';
 // export 'challenge/widget_packages.dart';
-// export 'complete/widget_packages.dart';
+export 'complete/widget_packages.dart';
