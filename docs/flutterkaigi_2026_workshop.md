@@ -22,7 +22,7 @@ AI を活用するアイディアや、最近の Flutter 公式の AI関連の�
   - Google アカウントの [Gemini 無料枠には、利用可能モデルや使用量制限がある](https://support.google.com/gemini/answer/17004136?hl=ja&sjid=9846380269382269129-NC)ことに注意してください。  
     ①無料枠で使えるモデルは、Gemini Flash-Lite のみです。  
     ②無料枠の使用量上限のリセットは週単位です。（**上限になれば翌週まで使えません**）  
-    ③無料枠のコンテキストサイズは、1M(100万)トークンです。（推論力に制限があります）  
+    ③無料枠のコンテキストサイズは、1M(100万)トークンです。  
     ④プロンプトの複雑度や会話の長さにより使用量の消費が増大します。  
 
   - Antigravity 無料枠と Gemini web Apps 無料枠は分かれています。  
@@ -80,6 +80,10 @@ _Antigravity ワークスペースは、空ディレクトリであっても構�
 
 #### Antigravity へのサインインと利用規約への同意＋ワークスペース信任の確認
 
+Google Antigravity は、ローカルマシン上で完結する単一ソフトウェアではありません。  
+ローカル（Agent Harness、Tools）とクラウドインフラ（Agent API を介した Large Language Model 利用）が緊密に連動する
+ハイブリッド・アーキテクチャ（Hybrid Agentic Architecture） で構成されています。
+
 - step.1  
   ![](images/agy_cli_initialize/agy_first_step_2.png)  
   ターミナルを開き、ワークスペースディレクトリに移動してから、`agy` コマンドを実行して Antigravity CLI を起動します。
@@ -88,7 +92,7 @@ _Antigravity ワークスペースは、空ディレクトリであっても構�
 
 - step.2  
   ![](images/agy_cli_initialize/agy_first_step_3.png)
-  Antigravity CLI の初回起動時は、Antigravity にサインインしていないのでログインが求められます。  
+  Antigravity CLI の初回起動時は、Antigravity クラウドインフラにサインインしていないのでログインが求められます。  
   ここでは、Google OAuth を選択して Enter を入力してください。
 
 <br/>
@@ -180,7 +184,7 @@ _Antigravity ワークスペースは、空ディレクトリであっても構�
 
 Antigravity には、トークン使用量（残量）を表示する `/usage` コマンドがあります。
 
-また、どのモデルをどれぐらい考えされるのかを設定｜確認する `/model` コマンドもあります。
+また、どのモデルをどれぐらい考えさせるのかを設定｜確認する `/model` コマンドもあります。
 
 Antigravity 無料枠は、デフォルトで Gemini 3.8 Flash ｰ high モードが指定されていてスペックは高めです。(2026/10/10調べ)
 
@@ -188,34 +192,34 @@ Antigravity 無料枠は、デフォルトで Gemini 3.8 Flash ｰ high モー�
 
 #### モデルと思考強度の選択
 
-- step.1  
+- step.1 **（無料枠）**    
   ![](images/agy_cli_issue/agy_issue_1A.png)
-  `/model` コマンドで利用できるモデルと思考強度を確認（無料枠）  
-  _無料枠は、最新のモデルを選択できません。_
+  `/model` コマンドで利用できるモデルと思考強度を確認 **（無料枠）**  
+  _無料枠は、最新のモデルを選択できません。_  
+  　  
+  _私が試した限りですが、ゲームアプリ生成のため 15分間の間、Gemini 3.8 Flash - high を稼働させると、無料枠の約半分を消費するようです。_
 
 <br/>
 
-- step.1  
+- step.1 **（サブスクリプション枠 - AI Pro）**  
   ![](images/agy_cli_issue/agy_issue_1B.png)
-  `/model` コマンドで利用できるモデルと思考強度確認（サブスクリプション枠 - AI Pro）  
+  `/model` コマンドで利用できるモデルと思考強度確認 **（サブスクリプション枠 - AI Pro）**  
   _サブスクリプション枠は、最新のモデル(Gemini4)を選択できます。_
-
-_私が試した限りですが、ゲームアプリ生成のため 15分間の間、Gemini 3.8 Flash - high を稼働させると、無料枠の約半分を消費するようです。_
 
 <br/>
 
 #### トークン使用量（残量）確認
 
-- step.2  
+- step.2 **（無料枠）**    
   ![](images/agy_cli_issue/agy_issue_3A.png)
-  `/usage` コマンドで無料枠残量を確認（無料枠）  
+  `/usage` コマンドで無料枠残量を確認 **（無料枠）**  
   _無料枠のリセットタイミングは、週単位のみです_
 
 <br/>
 
-- step.2  
+- step.2 **（サブスクリプション枠 - AI Pro）**  
   ![](images/agy_cli_issue/agy_issue_3B.png)
-  `/usage` コマンドで無料枠残量を確認（サブスクリプション枠 - AI Pro）
+  `/usage` コマンドで無料枠残量を確認 **（サブスクリプション枠 - AI Pro）**
   _サブスクリプション枠のリセットタイミングは、5時間単位と週単位です_
 
 <br/>
@@ -236,7 +240,21 @@ _私が試した限りですが、ゲームアプリ生成のため 15分間の�
 
 <br/>
 
+### ミニゲーム生成 **`1_create_game`フォルダ構成**  
+  ```tree
+  ├ 1_create_game/
+  │  │
+  │  ├ breakout_agy/    ブロック崩しゲーム生成・空プロジェクト（Antigravity ＋ Gemini 3.8 Flash モデル環境）
+  │  │
+  │  ├ breakout_crush/  ブロック崩しゲーム生成・空プロジェクト（Crush ハーネス ＋ Qwen3.5 9bモデル環境）
+  │  │
+  │  └ gen_example/     ブロック崩しゲーム生成・サンプルプロジェクト（Antigravity ＋ Gemini 3.8 Flash モデル環境）
+  ```
+
 ### ブロック崩しゲーム生成のためのプロンプト入力
+
+ターミナルのカレントディレクトリを `1_create_game/breakout_agy/` に移動して、  
+`agy` コマンドを実行して Antigravity CLI を起動させてから、次のプロンプトを入力します。
 
 - step.1  
   ![](images/agy_cli_create_game/agy_create_breakout_1.png)  
@@ -253,6 +271,14 @@ _私が試した限りですが、ゲームアプリ生成のため 15分間の�
 
 Antigravity からユーザに対して、コマンドやツールの利用やコードファイルの更新許可が求められます。  
 基本的に、許可｜`allow`で良いのですが、どんなパターンがあるのか見ておいてください。
+
+_Antigravity  には、ユーザーへの承認を自動バイパス・省略する `YOLO モード` はありません。_  
+_・もしもユーザー承認を省略したい場合は、代用として [`/config toolPermission always-proceed`](https://codelabs.developers.google.com/antigravity-cli-hands-on?hl=ja#3) を利用してください。_  
+　_（フラグ一覧）_  
+　　_・`request-review` : 事前承認済対象のみ許可（デフォルト）。_  
+　　_・`always-proceed` : すべての承認を常に許可。_  
+　　_・`proceed-in-sandbox` : サンドボックス内のみ許可。_  
+　　_・`strict` : 読み取りツールのみ許可。_   　
 
 - step.2  
   ![](images/agy_cli_create_game/agy_create_breakout_4.png)  
@@ -454,12 +480,14 @@ Antigravity でアプリが作成されたがバグが発生していたり、�
 6. answer にある正しいコードが消えていないかを確認（2件とも出力されれば OK）  
   `grep -nE 'hasShield = true;|isFireball \? block\.health : 1' fix_challenge_agy/lib/game/breakout_game_controller.dart`
 
-7. ビルドとテスト  
+7. アナライズとテスト  
   `(cd fix_challenge_agy && flutter analyze && flutter test)`
 
 正しいコードを壊すケースは、5 の「バグが残っていないか」だけでは見つかりません。  
 ケース 6 で、正しいコードが残っているかの確認もしてください。  
-基本的には、3 で `answer/` と `fix_challenge_agy/' との差分を目で確認します。  
+
+基本的には、3 で `answer/` と `fix_challenge_agy/` との差分を目で確認して、  
+7 の `flutter analyze` と `flutter test` を実行して問題がないかチェックします。  
 
 
 #### 修正コードの後始末｜やり直し
@@ -577,7 +605,7 @@ _お時間のあるときにチャレンジしてみてください。_
 ![](images/agy_cli_fix_challenge/qwen35_without_skills_mcp_lsp/fix_challenge_qwen35_1.png)
 
 - **Claude Code による評価結果**  
-  **10門中の 2問が正解と判定されましたが、全体的ににエラーの特定もコード修正もできていません。**  
+  **10門中の 3問が正解と判定されましたが、全体的ににエラーの特定もコード修正もできていません。**  
 
 <br/>
 <br/>
@@ -707,14 +735,14 @@ Flutter Agent Plugins は、**専用の Model Context Protcol（MCP）サーバ�
 
 Flutter チームからも **公式 Fluttr Agent Plugin (Flutter | Dart Agent Skills)** 利用の推奨が確認できましたので、
 
-公式 Flutter | Dart Agent スキルのインストールについて説明します。
+公式 Flutter | Dart Agent スキルのインストール（Antigravity用）について説明します。
 
 
 ### npx コマンドでスキルをインストールする ①
 
 エラー修正力を上げるため、公式 Fluttr | Dart Agent スキルをインストールします。
 
-ワークスペースルートで 以下の １ が ２ のコマンドを実行すれば、ワークスペースの **.agents/skills/** 配下に公式スキルがインストールされます。  
+ワークスペースルートで 以下の １ か ２ のコマンドを実行すれば、ワークスペースの **.agents/skills/** 配下に公式スキルがインストールされます。  
 
 <br/>
 
@@ -739,6 +767,14 @@ Flutter チームからも **公式 Fluttr Agent Plugin (Flutter | Dart Agent Sk
 
   - _**ワークスペースの`.agents/`配下か、グローバルの `~/.gemini/`配下の `mcp_config.json`に、**_  
     _**Dart MCP Server 設定が含まれていないと、スキルの能力が半減してしまうことにに注意してください。**_  
+
+  - npx でインストールしたスキルのアンインストール、  
+    - npx skills remove <スキル名> で `.agents/`から削除
+    - .skills.json を手動で編集して該当エントリを削除
+    - skills-lock.json を削除
+    - npx skills update などを実行してクリーンなロックファイルを再生成
+    - 【参考元】[npx skills — AIエージェント用パッケージマネージャーの使い方と落とし穴 #CLI - Qiita](https://qiita.com/toyama0919/items/397ea7ad2d03f5248463)
+      - _Dart MCP サーバを削除する場合は、`.agents/`配下の `mcp_config.json` も削除してください。_
 
 <br/>
 
@@ -780,7 +816,8 @@ Flutter チームからも **公式 Fluttr Agent Plugin (Flutter | Dart Agent Sk
 
 ### agy オプション・コマンドでスキル（プラグイン）をインストールする ②
 
-公式 Flutter Agent Plugin を使って、スキルだけでなくルールなども一括してワークスペースにインストールできます。
+Antigravity CLIならオプションコマンドを使って、  
+スキルだけでなくルールなど公式 Flutter Agent Plugin 一式を一括でワークスペースにインストールできます。
 
 ワークスペース・ルートで 以下のコマンドを実行すると、ワークスペースの **.agents/skills/** 配下に公式スキルがインストールされます。
 
@@ -800,12 +837,73 @@ Flutter チームからも **公式 Fluttr Agent Plugin (Flutter | Dart Agent Sk
 
 <br/>
 
-### 【参考】手動で スキル（プラグイン）をインストールする ③
+- インストールした Flutter Agent Plugins のアンインストール
+  ```bash
+  # Flutter Agent Plugins をアンインストールするコマンド。  
+  agy plugin uninstall flutter
+  ```  
 
-ワークスペース・ルートの **`.agents/`配下に [Flutter Agents Plugin リポジトリ](ttps://github.com/flutter/agent-plugins)の`skills/` をコピー** しても、
-①と同じ効果が得られます。
+<br/>
 
-- _リポジトリの更新に合わせて手動で同期を図る必要があります。_
+- 【参考資料】
+  - [Plugins | Google Antigravity Docs](https://antigravity.google/docs/plugins)
+  - [Plugin Marketplace in Antigravity | Google Antigravity Blog](https://antigravity.google/blog/plugin-marketplace-in-antigravity)
+
+<br/>
+
+### Claude Code や Codex でスキル（プラグイン）をインストールする ③
+
+- Claude Code 
+  - プラグイン・マーケットプレイスに Flutter Agent Plaubins を追加。  
+    ```bash
+    claude plugin marketplace add flutter/agent-plugins
+    ```  
+    　  
+  - Flutter and Dart plugin をインストール。  
+    ```bash
+    claude plugin install dart-flutter@dart-flutter
+    ```  
+    　  
+  - Claude CodeのプラグインはスキルとMCPサーバーを検出しますが、プラグインルールは自動的にロードしません。  
+    Claude Codeに公式のFlutterルールを適用するには、公式ルールリポジトリ から必要なルールを プロジェクトの `CLAUDE.md`ファイルに追加してください。
+
+<br/>
+
+- Cpdex
+  - プラグイン・マーケットプレイスに Flutter Agent Plaubins を追加。  
+    ```bash
+    codex plugin marketplace add flutter/agent-plugins
+    ```  
+    　  
+  - Flutter and Dart plugin をインストール。  
+    ```bash
+    codex plugin add dart-flutter@dart-flutter
+    ```  
+    　  
+  - Codex プラグインはスキルと MCP サーバーをインストールしますが、ルールは自動的にバンドルしません。  
+    Codex に公式の Flutter ルールを組み込むには、公式ルールリポジトリから `ルールファイル.md`をプロジェクトのディレクトリにダウンロードするか、
+    ルールの説明を `.agent/rules/CODEX.md`に追加してください。
+  
+<br/>
+
+- 【参考資料】
+  - [Get started developing with AI - Choose your AI coding agent](https://docs.flutter.dev/ai/get-started#choose-your-ai-coding-agent#choose-your-ai-coding-agent)
+
+<br/>
+
+### 【参考】手動で スキル（プラグイン）をインストールする ④
+
+ワークスペース・ルートの **`.agents/`配下に [Flutter Agents Plugin リポジトリ](ttps://github.com/flutter/agent-plugins)の`skills/` をコピー** して、  
+①の`mcp_config.json` 設定ファイルを配置しても、Antigravity で Flutter Agents Plugin のスキルが使えます。
+
+- _リポジトリの更新に合わせて手動で同期を図る必要があることに留意。_
+
+- _`.agents/`配下の Agent Skills 設定は 標準プロトコルなので、どの AI coding agent harness でも共用できますが、_  
+    _Dart MCP サーバーの設定については、AI Coding agent harness ごとに替える必要があることに留意ください。_
+
+- 手動でインストールしたスキルのアンインストール。  
+  - `.agents/`配下にコピーした `skills/`を削除
+  - _Dart MCP サーバを削除する場合は、`.agents/`に配置した `mcp_config.json` も削除してください。_
 
 <br/>
 <br/>
@@ -861,7 +959,15 @@ Flutter チームからも **公式 Fluttr Agent Plugin (Flutter | Dart Agent Sk
 - **Resolving Dart Static Analysis Errors（Agents Skill）**  
   [skills/skills/dart-fix-runtime-errors/SKILL.md at main · dart-lang/skills](https://github.com/dart-lang/skills/blob/main/skills/dart-fix-runtime-errors/SKILL.md)  
   [https://github.com/dart-lang/skills/blob/main/skills/dart-fix-runtime-errors/SKILL.md](https://github.com/dart-lang/skills/blob/main/skills/dart-fix-runtime-errors/SKILL.md)  
-  _ランタイムエラー情報と LSP を使用して、タックトレースからエラーが発生している行の特定、修正の適用、hot_reloadを介した解決状況の確認を行います。_
+  _ランタイムエラー情報と LSP を使用して、スタックトレースからエラーが発生している行の特定、修正の適用、hot_reloadを介した解決状況の確認を行います。_
+
+### Agent Skills 一覧
+
+- [**Agent Skills for Flutter**](https://github.com/flutter/agent-plugins#available-skills)  
+  ![](images/flutter_agent_plugins/Flutter_agent-skills.png)  
+
+- [**Agent Skills for Dart**](https://github.com/dart-lang/skills#available-skills)  
+  ![](images/flutter_agent_plugins/Dart_agent-skills.png)  
 
 <br/>
 <br/>
@@ -869,13 +975,25 @@ Flutter チームからも **公式 Fluttr Agent Plugin (Flutter | Dart Agent Sk
 ---
 ---
 
-## アーキテクチャ・ベスト・プラクティス・チャレンジ
+## アーキテクチャ・ベストプラクティス・チャレンジ
 
-Flutter Agent Plugins には、単体テストの作成やレイアウトの修正およびデバッグの支援など多方面のスキルが提供されています。  
+前章の [**Agent Skills for Flutter**](https://github.com/flutter/agent-plugins#available-skills) や 
+[**Agent Skills for Dart**](https://github.com/dart-lang/skills#available-skills) パートを見ると、
+Flutter Agent Plugins には、単体テストの作成やレイアウトの修正およびデバッグの支援など多方面のスキルのガイドが紹介されています。  
+
+- **[flutter/agent-plugins](https://github.com/flutter/agent-plugins)** リポジトリ：  
+  ウィジェットの構築、宣言型ナビゲーション、レスポンシブデザイン、状態管理など、Flutter開発に必要な 10個のスキルを提供します。
+
+- **[dart-lang/skills](https://github.com/dart-lang/skills)** リポジトリ：  
+  単体テストの作成、依存関係の解決、静的解析の修正など、Dart開発に必要な 15個のスキルを提供します。
+
+<br/>
+
+これらのスキルは、プロンプトの文脈から自動的に実行されるので、特に意識する必要はありません。
 
 その中の **[Architecting Flutter Applications - flutter-apply-architecture-best-practices](https://github.com/flutter/agent-plugins/blob/main/skills/flutter-apply-architecture-best-practices/SKILL.md)** は、推奨される階層構造（UI、ロジック、データ）を使用した Flutterアプリケーションの実践を支援するスキルです。
 
-新規プロジェクトの構造化や、拡張性を考慮したリファクタリングを行う際に活用してください。...とあります。
+ガイドには、新規プロジェクトの構造化や拡張性を考慮したリファクタリングを行う際に活用してください。...とあり、他のスキルと少し毛色が異なりますので体験してみましょう。
 
 <br/>
 
@@ -921,10 +1039,18 @@ Flutter公式のアーキテクチャガイドラインに基づき、アプリ�
 
 <br/>
 
+### アーキテクチャ・ベストプラクティス・チャレンジ **`3_architecture-best-practices`フォルダ構成**  
+  ```tree
+  ├ 3_architecture-best-practices/
+  │  │
+  │  └ design_challenge/ アーキテクチャ・ベストプラクティス・プロジェクト（Antigravity｜Ollama + Crush ハーネス 共用）
+  ```
+
 ### スキルを体験する
 
-ターミナルで Antigravity CLI を起動しましたら、
-`flutter-apply-architecture-best-practices` スキルとのエージェント対話がスムーズに進むよう
+ターミナルのカレントディレクトリを `3_architecture-best-practices/design_challenge/` に移動して、agy コマンドを実行してください。  
+
+次に `flutter-apply-architecture-best-practices` スキルとのエージェント対話がスムーズに進むよう、
 以下の指示テキストをコピーしてプロンプト入力欄に貼り付けて、スキルを実行してください。
 
 ```text
@@ -941,9 +1067,17 @@ Flutter公式のアーキテクチャガイドラインに基づき、アプリ�
 
 <br/>
 
-### スキルを完了する
+### スキル実行ステップ（エージェントとの対話を行う）
 
-エージェントとの対話は、20分〜30分ほどの作業になります。
+このステップでは、20分〜30分ほどの作業を想定しています。
+
+エージェントからのスキルの紹介、作りたいアプリの選定や要望入力について、8ステップの対話が行われます。
+
+_**対話内容や構成は、実行ごとに変わります。 このため一度 御自身で体験してみてください。**_
+
+<br/>
+
+### スキルを完了する
 
 エージェントとの 8ステップの対話が完了すれば、ワークスペース(プロジェクトディレクトリ)には簡単なアプリの雛形が出来あがっています。
 
@@ -951,7 +1085,9 @@ Antigravity に `/exit` を入力して終了させて。
 
 ターミナルで `flutter run -d chrome` コマンドを実行して、作られたばかりのアプリを操作してみてください。
 
-そしてお使いの IDE で、アーキテクチャ・ベスト・プラクティスが生成したクラス構成やコードを確認してみて下さい。
+最後に お使いの IDE で、アーキテクチャ・ベスト・プラクティスが生成したクラス構成やコードを確認してみて下さい。
+
+Flutter チームが想定するベストプラクティスなアーキテクチャの実装パターンやコードを覗いてみてくださいね。
 
 <br/>
 <br/>
@@ -995,7 +1131,7 @@ AI を使った大量のコード生成やコード修正が行なわれよう�
 
 <br/>
 
-### 1. Opus 5.5 に全体設計書と要件仕様書を定義させました。
+### 1. Opus 5.5 に全体設計書と要件仕様書を定義させる。
 
 **conference-handson-2025/** は、FlutterKaigi 2025 ハンズオン・リポジトリからクローンされたリポジトリ ⇒ プロジェクトです。
 
@@ -1018,7 +1154,7 @@ Claude Code で、このプロジェクト・ディレクトリをワークス�
 
 <br/>
 
-### 2. AI に全体設計書と要件仕様書を読ませて、プロジェクトを生成させました。
+### 2. AI に全体設計書と要件仕様書を読ませて、プロジェクトを生成させる。
 
 **gen_agy_gemmini3.8/** と **gen_crush_quen3.8/** には、空のワークスペースに前の手順で生成させた **全体設計書** と **要件仕様書** のみを与えました。
 
@@ -1034,9 +1170,9 @@ _上記のプロンプトは単純なため、大量の推論コストを発生�
 
 <br/>
 
-### 3. 全体設計書と要件仕様書を使った、同等プロジェクトの再現度にはモデルにより差がありました。
+### 3. 全体設計書と要件仕様書を使った、同等プロジェクトの再現結果。
 
-AI に全体設計書と要件仕様書を読ませて、空ワークスペース ⇒ 空プロジェクトディレクトリから、同等プロジェクトを完成させる手法について、複数の モデル と AI コーディングエージェントでの再現度合いの主観的報告。
+AI に全体設計書と要件仕様書を読ませて、空ワークスペース ⇒ 空プロジェクトディレクトリから、同等プロジェクトを完成させる手法について、複数の モデル と AI コーディングエージェントでの再現度合いの主観的順位報告です。
 
 <br/>
 
@@ -1044,8 +1180,14 @@ AI に全体設計書と要件仕様書を読ませて、空ワークスペー�
 2. Antigravity CLI ｜ Gemini Flash 3.8
 3. Crush coding agent harness ｜ Qwen3.8:27b
 
+<br/>
 
-_モデルのコーディング学習量差により細部再現度が異なるが、基本はブレていないようにに感じられました。_
+モデルのコーディング学習量差により細部再現度が異なりますが、基本はブレていないようにに感じられました。
+
+_基本はブレていませんが、Qwen3.8:27bを使った再現では、カスタムペイントの不具合いにより進捗率サークルのアニメーション表示ができなかったりしています。_
+
+- **コンセプト復元例**  
+  ![](images/concept/concept-snap.png)  
 
 <br/>
 
