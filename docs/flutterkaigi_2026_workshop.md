@@ -938,6 +938,9 @@ Antigravity CLIならオプションコマンドを使って、
 - _`.agents/`配下の Agent Skills 設定は 標準プロトコルなので、どの AI coding agent harness でも共用できますが、_  
     _Dart MCP サーバーの設定については、AI Coding agent harness ごとに替える必要があることに留意ください。_
 
+- スキルとMCPサーバーは検出されますが、プラグインルールは自動的にロードされません。  
+  公式のFlutterルールを適用するには、**[Flutter Agents Plugin リポジトリの `rules/`](https://github.com/flutter/agent-plugins/tree/main/rules) もコピー** して、プロジェクトの `AGENTS.md`ファイルから参照するようにしてください。
+
 - 手動でインストールしたスキルのアンインストール。  
   - `.agents/`配下にコピーした `skills/`を削除
   - _Dart MCP サーバを削除する場合は、`.agents/`に配置した `mcp_config.json` も削除してください。_
